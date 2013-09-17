@@ -8,11 +8,13 @@
 
 #define kVerticalCheckmarkInset -2.0
 #define kHorizontalCheckmarkInset -4.0
+#define kImageSpacing 5.0
 
 @interface PHSideScrollingImagePicker () <UIScrollViewDelegate>
 @property (nonatomic, strong) NSMutableArray *selectedIndexes;
 @property (nonatomic, strong) NSMutableArray *imageViews;
 @property (nonatomic, strong) NSMutableArray *checkmarkImageViews;
+@property (nonatomic, strong) NSMutableArray *superviewConstraints;
 @end
 
 @implementation PHSideScrollingImagePicker
@@ -36,6 +38,8 @@
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.showsHorizontalScrollIndicator = NO;
     self.backgroundColor = [UIColor whiteColor];
+    
+    self.superviewConstraints = [NSMutableArray array];
 }
 
 - (void)setImages:(NSArray *)images;
@@ -109,6 +113,8 @@
 
     // Reset
     [self removeConstraints:self.constraints];
+    [self.superview removeConstraints:self.superviewConstraints];
+    [self.superviewConstraints removeAllObjects];
 
     
     // Bail early if there's no views
@@ -123,7 +129,7 @@
                                                         toItem:self
                                                      attribute:NSLayoutAttributeLeading
                                                     multiplier:1.0
-                                                      constant:5]];
+                                                      constant:kImageSpacing]];
     
     
     UIImageView *previousView = nil;
@@ -167,7 +173,7 @@
                                                                 toItem:previousView
                                                              attribute:NSLayoutAttributeRight
                                                             multiplier:1.0
-                                                              constant:5]];
+                                                              constant:kImageSpacing]];
         }
         
         previousView = subview;
@@ -180,7 +186,7 @@
                                                         toItem:self
                                                      attribute:NSLayoutAttributeRight
                                                     multiplier:1.0
-                                                      constant:-5]];
+                                                      constant:-kImageSpacing]];
     
     // Set all the checkmark views to be in the bottom left of the image views.
     NSUInteger i = 0;
@@ -208,6 +214,7 @@
                                       constant:kHorizontalCheckmarkInset];
         floatingConstraintSlideToLeft.priority = 450;
         [self.superview addConstraint:floatingConstraintSlideToLeft];
+        [self.superviewConstraints addObject:floatingConstraintSlideToLeft];
  
         // But, the checkmark should try to stick to the right edge of the superview.
         NSLayoutConstraint *floatingConstraintStickToRightEdge =
@@ -220,9 +227,10 @@
                                       constant:kHorizontalCheckmarkInset];
         floatingConstraintStickToRightEdge.priority = 350;
         [self.superview addConstraint:floatingConstraintStickToRightEdge];
+        [self.superviewConstraints addObject:floatingConstraintStickToRightEdge];
 
         
-        // These two constraints ensure the checkbox never leaves the bounds of the matching image view.
+        // These two constraints ensure the checkbox never leaves the bounds (left and right) of the matching image view.
         NSLayoutConstraint *floatingBoundsConstraintLeft =
         [NSLayoutConstraint constraintWithItem:checkmarkView
                                      attribute:NSLayoutAttributeLeft
