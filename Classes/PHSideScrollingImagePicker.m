@@ -37,7 +37,7 @@
 {
     self.translatesAutoresizingMaskIntoConstraints = NO;
     self.showsHorizontalScrollIndicator = NO;
-    self.backgroundColor = [UIColor whiteColor];
+//    self.backgroundColor = [UIColor whiteColor];
     
     self.superviewConstraints = [NSMutableArray array];
 }
@@ -100,6 +100,9 @@
         [self bringSubviewToFront:checkmarkView];
     }
     
+    if (self.delegate && [self.delegate respondsToSelector:@selector(selectionDidUpdateForPicker:)]) {
+        [self.delegate selectionDidUpdateForPicker:self];
+    }
 }
 
 - (NSArray *)selectedImageIndexes;
