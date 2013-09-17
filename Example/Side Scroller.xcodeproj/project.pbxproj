@@ -61,8 +61,8 @@
 		CD5B45DD17E82500002E16AE /* Side ScrollerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Side ScrollerTests-Info.plist"; sourceTree = "<group>"; };
 		CD5B45DF17E82500002E16AE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD5B45E117E82500002E16AE /* Side_ScrollerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Side_ScrollerTests.m; sourceTree = "<group>"; };
-		CD5B45EB17E8263F002E16AE /* PHSideScrollingImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHSideScrollingImagePicker.h; path = ../../PHSideScrollingImagePicker.h; sourceTree = "<group>"; };
-		CD5B45EC17E8263F002E16AE /* PHSideScrollingImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHSideScrollingImagePicker.m; path = ../../PHSideScrollingImagePicker.m; sourceTree = "<group>"; };
+		CD5B45EB17E8263F002E16AE /* PHSideScrollingImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PHSideScrollingImagePicker.h; path = ../../Classes/PHSideScrollingImagePicker.h; sourceTree = "<group>"; };
+		CD5B45EC17E8263F002E16AE /* PHSideScrollingImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PHSideScrollingImagePicker.m; path = ../../Classes/PHSideScrollingImagePicker.m; sourceTree = "<group>"; };
 		CD5B45EE17E826F7002E16AE /* checked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checked@2x.png"; path = "../../Images/checked@2x.png"; sourceTree = "<group>"; };
 		CD5B45EF17E826F7002E16AE /* unchecked@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "unchecked@2x.png"; path = "../../Images/unchecked@2x.png"; sourceTree = "<group>"; };
 		CD5B45F217E82833002E16AE /* 5@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5@2x.jpg"; sourceTree = "<group>"; };
