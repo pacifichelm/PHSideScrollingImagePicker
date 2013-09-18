@@ -241,7 +241,7 @@
                                         toItem:matchingImageView
                                      attribute:NSLayoutAttributeLeading
                                     multiplier:1.0
-                                      constant:kHorizontalCheckmarkInset];
+                                      constant:-kHorizontalCheckmarkInset];
         floatingBoundsConstraintLeft.priority = 1000;
         [self addConstraint:floatingBoundsConstraintLeft];
 
