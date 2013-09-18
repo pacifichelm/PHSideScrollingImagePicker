@@ -9,7 +9,7 @@ A horizontally scrolling image picker, similar to the one found in iOS 7's Photo
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Patrick B. Gibson" => "patrick@fadeover.org" }
   s.platform     = :ios
-  s.source       = { :git => "https://github.com/pacifichelm/PHSideScrollingImagePicker.git", :tag => "1.0.0" }
+  s.source       = { :git => "https://github.com/pacifichelm/PHSideScrollingImagePicker.git", :tag => "1.0.1" }
   s.source_files  = 'Classes', 'Classes/**/*.{h,m}'
   s.exclude_files = 'Classes/Exclude'
   s.public_header_files = 'Classes/**/*.h'
