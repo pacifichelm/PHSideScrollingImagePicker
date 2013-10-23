@@ -13,7 +13,7 @@
 - (void)selectionDidUpdateForPicker:(PHSideScrollingImagePicker *)picker;
 @end
 
-@interface PHSideScrollingImagePicker : UIScrollView
+@interface PHSideScrollingImagePicker : UIView
 
 @property (nonatomic, weak) id<PHSideScrollingImagePickerDelegate> delegate;
 @property (nonatomic, strong, readonly) NSArray *selectedImageIndexes;
