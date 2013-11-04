@@ -33,6 +33,8 @@
 		CDB284E8181DC95000B54BB7 /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB284E7181DC95000B54BB7 /* Reveal.framework */; };
 		CDB284EA181DC97800B54BB7 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB284E9181DC97800B54BB7 /* CFNetwork.framework */; };
 		CDB284EC181DC98000B54BB7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDB284EB181DC98000B54BB7 /* QuartzCore.framework */; };
+		CDBB2FA91826E4C000A9A266 /* PHSideScrollingCheckCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB2FA81826E4C000A9A266 /* PHSideScrollingCheckCell.m */; };
+		CDBB2FAC1828220900A9A266 /* PHSideScrollingLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBB2FAB1828220900A9A266 /* PHSideScrollingLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,10 @@
 		CDB284E7181DC95000B54BB7 /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "../../../../../Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/Reveal.framework"; sourceTree = "<group>"; };
 		CDB284E9181DC97800B54BB7 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CDB284EB181DC98000B54BB7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CDBB2FA71826E4C000A9A266 /* PHSideScrollingCheckCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHSideScrollingCheckCell.h; sourceTree = "<group>"; };
+		CDBB2FA81826E4C000A9A266 /* PHSideScrollingCheckCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHSideScrollingCheckCell.m; sourceTree = "<group>"; };
+		CDBB2FAA1828220900A9A266 /* PHSideScrollingLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHSideScrollingLayout.h; sourceTree = "<group>"; };
+		CDBB2FAB1828220900A9A266 /* PHSideScrollingLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHSideScrollingLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +157,12 @@
 				CD5B45CC17E82500002E16AE /* PHViewController.m */,
 				CD5B45EB17E8263F002E16AE /* PHSideScrollingImagePicker.h */,
 				CD5B45EC17E8263F002E16AE /* PHSideScrollingImagePicker.m */,
+				CDBB2FAA1828220900A9A266 /* PHSideScrollingLayout.h */,
+				CDBB2FAB1828220900A9A266 /* PHSideScrollingLayout.m */,
 				CDB284E4181DBFFB00B54BB7 /* PHSideScrollingImagePickerCell.h */,
 				CDB284E5181DBFFB00B54BB7 /* PHSideScrollingImagePickerCell.m */,
+				CDBB2FA71826E4C000A9A266 /* PHSideScrollingCheckCell.h */,
+				CDBB2FA81826E4C000A9A266 /* PHSideScrollingCheckCell.m */,
 				CD5B45CE17E82500002E16AE /* Images.xcassets */,
 				CD5B45BD17E82500002E16AE /* Supporting Files */,
 			);
@@ -300,8 +310,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDBB2FA91826E4C000A9A266 /* PHSideScrollingCheckCell.m in Sources */,
 				CD5B45C717E82500002E16AE /* PHAppDelegate.m in Sources */,
 				CDB284E6181DBFFB00B54BB7 /* PHSideScrollingImagePickerCell.m in Sources */,
+				CDBB2FAC1828220900A9A266 /* PHSideScrollingLayout.m in Sources */,
 				CD5B45CD17E82500002E16AE /* PHViewController.m in Sources */,
 				CD5B45ED17E8263F002E16AE /* PHSideScrollingImagePicker.m in Sources */,
 				CD5B45C317E82500002E16AE /* main.m in Sources */,

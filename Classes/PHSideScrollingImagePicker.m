@@ -5,35 +5,17 @@
 //
 
 #import "PHSideScrollingImagePicker.h"
+#import "PHSideScrollingLayout.h"
 #import "PHSideScrollingImagePickerCell.h"
+#import "PHSideScrollingCheckCell.h"
 
 #define kImageSpacing 6.0
-#define kHorizontalCheckmarkInset -4.0
 
-@interface PHSideScrollingLayout : UICollectionViewFlowLayout
-@end
-
-@implementation PHSideScrollingLayout
-- (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
-{
-    return YES;
-}
-- (void)invalidateLayoutWithContext:(UICollectionViewLayoutInvalidationContext *)context
-{
-    NSLog(@"invalidatin");
-    for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
-        [cell setNeedsLayout];
-        [self.collectionView.superview setNeedsLayout];
-    }
-    [super invalidateLayoutWithContext:context];
-}
-@end
-
-@interface PHSideScrollingImagePicker () <UIScrollViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface PHSideScrollingImagePicker () <UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, weak) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *selectedIndexes;
 @property (nonatomic, strong) NSMutableArray *imagesArray;
-@property (nonatomic, strong) NSMutableArray *superviewConstraints;
+@property (nonatomic, strong) NSMapTable *indexPathToCheckViewTable;
 @end
 
 @implementation PHSideScrollingImagePicker
@@ -70,6 +52,7 @@
     collectionView.showsHorizontalScrollIndicator = NO;
     collectionView.collectionViewLayout = flow;
     [collectionView registerClass:[PHSideScrollingImagePickerCell class] forCellWithReuseIdentifier:@"Cell"];
+    [collectionView registerClass:[PHSideScrollingCheckCell class] forSupplementaryViewOfKind:@"check" withReuseIdentifier:@"CheckCell"];
     
     [self addSubview:collectionView];
     self.collectionView = collectionView;
@@ -77,7 +60,7 @@
     self.collectionView.backgroundColor = [UIColor clearColor];
     self.backgroundColor = [UIColor clearColor];
     
-    self.superviewConstraints = [NSMutableArray array];
+    self.indexPathToCheckViewTable = [NSMapTable strongToWeakObjectsMapTable];
     
     NSDictionary *views = NSDictionaryOfVariableBindings(collectionView);
     
@@ -106,37 +89,60 @@
     return self.imagesArray.count;
 }
 
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 {
     PHSideScrollingImagePickerCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
-//    cell.translatesAutoresizingMaskIntoConstraints = NO;
     cell.imageView.image = [self.imagesArray objectAtIndex:indexPath.row];
-//    [cell setNeedsUpdateConstraints];
-//    [cell layoutIfNeeded];
-//    [cell updateConstraintsIfNeeded];
     return cell;
 }
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath;
+{
+    PHSideScrollingCheckCell *checkView = [self.collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"CheckCell" forIndexPath:indexPath];
+    [self.indexPathToCheckViewTable setObject:checkView forKey:indexPath];
+    
+    if ([[collectionView indexPathsForSelectedItems] containsObject:indexPath]) {
+        [checkView setChecked:YES];
+    }
+    
+    return checkView;
+}
 
 #pragma mark - UICollectionViewDelegate
 
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    [self toggleSelectionAtIndexPath:indexPath];
+}
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+{
+    [self toggleSelectionAtIndexPath:indexPath];
+}
+
+- (void)toggleSelectionAtIndexPath:(NSIndexPath *)indexPath
 {
     NSUInteger index = indexPath.row;
     NSNumber *path = @(index);
     
     PHSideScrollingImagePickerCell *cell = (PHSideScrollingImagePickerCell *)[self.collectionView cellForItemAtIndexPath:indexPath];
+    PHSideScrollingCheckCell *checkmarkView = [self.indexPathToCheckViewTable objectForKey:indexPath];
     
+    // Manage internal selection state
     if ([self.selectedIndexes containsObject:path]) {
         [self.selectedIndexes removeObject:path];
         [cell setSelected:NO];
+        [checkmarkView setChecked:NO];
     } else {
         [self.selectedIndexes addObject:path];
         [cell setSelected:YES];
+        [checkmarkView setChecked:YES];
     }
     
+    // Notify delegate
     if (self.delegate && [self.delegate respondsToSelector:@selector(selectionDidUpdateForPicker:)]) {
         [self.delegate selectionDidUpdateForPicker:self];
     }
@@ -156,45 +162,5 @@
     return scaledSize;
 }
 
-- (void)updateConstraints
-{
-    [super updateConstraints];
-
-    NSLog(@"updating");
-    
-    for (PHSideScrollingImagePickerCell *cell in self.collectionView.visibleCells) {
-        
-        // The checkmark should move left as the image moves offscreen to the right.
-//        NSLayoutConstraint *floatingConstraintSlideToLeft =
-//        [NSLayoutConstraint constraintWithItem:cell.checkmarkView
-//                                     attribute:NSLayoutAttributeRight
-//                                     relatedBy:NSLayoutRelationLessThanOrEqual
-//                                        toItem:self.collectionView
-//                                     attribute:NSLayoutAttributeRight
-//                                    multiplier:1.0
-//                                      constant:kHorizontalCheckmarkInset];
-//        floatingConstraintSlideToLeft.priority = 1000;
-//        [self.collectionView addConstraint:floatingConstraintSlideToLeft];
-//        [self.superviewConstraints addObject:floatingConstraintSlideToLeft];
-        
-        // But, the checkmark should try to stick to the right edge of the superview.
-        NSLayoutConstraint *floatingConstraintStickToRightEdge =
-        [NSLayoutConstraint constraintWithItem:cell.checkmarkView
-                                     attribute:NSLayoutAttributeRight
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:self
-                                     attribute:NSLayoutAttributeRight
-                                    multiplier:1.0
-                                      constant:kHorizontalCheckmarkInset];
-        floatingConstraintStickToRightEdge.priority = 1000;
-        [self addConstraint:floatingConstraintStickToRightEdge];
-////        [self.superviewConstraints addObject:floatingConstraintStickToRightEdge];
-
-        
-    }
-    
-
-
-}
 
 @end

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHSideScrollingCheckCell.h"
 
 @interface PHSideScrollingImagePickerCell : UICollectionViewCell
 
 @property (nonatomic, readonly) UIImageView *imageView;
-@property (nonatomic, readonly) UIImageView *checkmarkView;
+@property (nonatomic, weak) PHSideScrollingCheckCell *check;
 
 @end
