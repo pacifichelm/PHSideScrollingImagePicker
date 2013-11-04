@@ -8,14 +8,8 @@
 
 #import "PHSideScrollingImagePickerCell.h"
 
-#define kVerticalCheckmarkInset -2.0
-#define kHorizontalCheckmarkInset -4.0
-
 @interface PHSideScrollingImagePickerCell ()
 @property (nonatomic, weak) UIImageView *imageView;
-@property (nonatomic, weak) UIImageView *checkmarkView;
-
-@property (nonatomic, strong) NSMutableArray *superviewConstraints;
 @end
 
 @implementation PHSideScrollingImagePickerCell
