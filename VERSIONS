@@ -1,3 +1,6 @@
+# 1.1.1
+- Fix a cocoapods build error where requires_arc wasn't being set.
+
 # 1.1
 - Rewrote most internals to function as a collection view. This moves the project away from being an auto layout example and being more production ready. Unfortunately auto layout doesn't yet play well with UICollectionViewLayout.
 

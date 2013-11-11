@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "PHSideScrollingImagePicker"
-  s.version      = "1.1"
+  s.version      = "1.1.1"
   s.summary      = "iOS 7-style Image Picker"
   s.description  = <<-DESC
 A horizontally scrolling image picker, similar to the one found in iOS 7's Photos.app share view, complete with floating checkmark badge.
@@ -14,4 +14,5 @@ A horizontally scrolling image picker, similar to the one found in iOS 7's Photo
   s.exclude_files = 'Classes/Exclude'
   s.public_header_files = 'Classes/**/*.h'
   s.resources = "Images/*.png"
+	s.requires_arc  = true
 end
